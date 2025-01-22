@@ -1,8 +1,14 @@
 import React from 'react'
 
-const FinishedForm = () => {
+const FinishedForm = (props) => {
+  const {handleBackStep} = props
   return (
-    <div>FinishedForm</div>
+    <button
+        className="w-full bg-black text-white border rounded-md p-2"
+        onClick={handleBackStep}
+      >
+        back
+      </button>
   )
 }
 
