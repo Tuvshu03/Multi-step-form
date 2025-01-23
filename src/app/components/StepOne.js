@@ -1,29 +1,58 @@
 import React from "react";
+import FormInput from "./FormInput";
+import { isStepOneValid } from "../utils/isValid";
 
 const StepOne = (props) => {
-  const { handleNextStep } = props;
+  const { handleNextStep, formValue, errors, handleError, setFormValue } =
+    props;
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValue((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFormNextStep = () => {
+    const { isValid, errors } = isStepOneValid(formValue);
+    if (isValid) {
+      handleNextStep();
+    }
+    handleError(errors);
+  };
   return (
-    <div className="border rounded-[8px] w-[480px] h-[655px] p-8 flex flex-col justify-between items-start bg-white">
+    <div className="border rounded-[8px] w-[480px] h-1/2 p-8 flex flex-col justify-between items-start bg-white">
       <div>
-        <p>Join us</p>
+        <img src="./img/Main 1.png" />
+        <p className="text-[26px] text-foreground font-semibold">Join Us! 😎</p>
         <p>Please provide all current information accurately</p>
       </div>
       <div className="w-full">
-        <label>
-          First name
-          <span className="text-red-500">*</span>
-        </label>
-        <input
-          // name={name}
-          // type={type}
-          // value={value}
-          // onChange={onChange}
-          placeholder="Овгоо оруулна уу"
-          className="mt-1 block w-full px-3 py-2 rounded-md border-gray-500 focus:outline-blue-500 text-black"
-        />
+      <FormInput
+        handleChange={handleChange}
+        title={"First name"}
+        name={"firstName"}
+        placeholder={"Enter your first name"}
+        errors={errors.firstName}
+        value={formValue.firstName}
+      />
+      <FormInput
+        handleChange={handleChange}
+        title={"Last name"}
+        name={"lastName"}
+        placeholder={"Enter your last name"}
+        errors={errors.lastName}
+        value={formValue.lastName}
+      />
+      <FormInput
+        handleChange={handleChange}
+        title={"User name"}
+        name={"userName"}
+        placeholder={"Enter your user name"}
+        errors={errors.userName}
+        value={formValue.userName}
+      />
       </div>
       <div
-        onClick={handleNextStep}
+        onClick={handleFormNextStep}
         className="flex items-center justify-center w-full bg-black text-white border rounded-md p-2 cursor-pointer"
       >
         Continue

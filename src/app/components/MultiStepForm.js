@@ -34,25 +34,29 @@ const MultiStepForm = () => {
 
   const handleNextStep = () => {
     if (currentStep !== 3) {
-      setCurrentStep((prevStep) => 
-        prevStep + 1
-      );
+      setCurrentStep((prevStep) => prevStep + 1);
     }
   };
   const handleBackStep = () => {
     if (currentStep !== 0) {
-      setCurrentStep((prevStep) => 
-        prevStep - 1
-      );
+      setCurrentStep((prevStep) => prevStep - 1);
     }
   };
 
-  console.log(currentStep);
+  const handleError = (errors) => {
+    setFormError((prev) => ({ ...prev, ...errors }));
+  };
 
   return (
-    <div className="h-screen w-full bg-[#F4F4F4] flex justify-center items-center">
-   
-      <Step handleNextStep={handleNextStep} handleBackStep={handleBackStep} />
+    <div className="h-screen w-full flex justify-center items-center bg-transparent">
+      <Step
+        errors={formError}
+        formValue={formValue}
+        handleError={handleError}
+        setFormValue={setFormValue}
+        handleNextStep={handleNextStep}
+        handleBackStep={handleBackStep}
+      />
     </div>
   );
 };

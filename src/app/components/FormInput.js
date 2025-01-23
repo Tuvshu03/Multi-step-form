@@ -1,30 +1,24 @@
-import React from 'react'
+import React from "react";
 
-const FormInput = ({
-  placeholder,
-  type = "text",
-  onChange,
-  name = "",
-  value,
-  
-  }
-) => {
+const FormInput = (props) => {
+  const { placeholder, handleChange, name, title, errors, value} = props;
   return (
-    <div>
-           <label>
-            First name
-            <span className="text-red-500">*</span>
-          </label>
-          <input 
-          name={name}
-          type={type}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          className={`mt-1 block w-full px-3 py-2 rounded-md border-gray-300 focus:outline-blue-500 text-black`}
-          />
+    <div className="w-full">
+      <label>
+        {title}
+        <span className="text-red-500">*</span>
+      </label>
+      <input
+        name={name}
+        type="text"
+        onChange={handleChange}
+        placeholder={placeholder}
+        value={value}
+        className="w-full p-3 text-base leading-5 rounded-md outline outline-[#CBD5E1] focus:outline-[#0CA5E9] text-[#121316]"
+      />
+      {errors.length > 0 && (<p className="text-red-500">{errors}</p>)}
     </div>
-  )
-}
+  );
+};
 
-export default FormInput
+export default FormInput;
