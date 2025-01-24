@@ -1,6 +1,5 @@
 import React from "react";
 import FormInput from "./FormInput";
-import { isStepOneValid } from "../utils/isValid";
 
 const StepTwo = (props) => {
   const { handleBackStep, handleNextStep, formValue, errors, handleError, setFormValue  } = props;
@@ -18,7 +17,7 @@ const StepTwo = (props) => {
       handleError(errors);
     };
   return (
-    <div className="border rounded-[8px] w-[480px] h-[655px] p-8 flex flex-col justify-between items-start bg-white">
+    <div className="flex flex-col w-[480px] min-h-[655px] p-8 bg-white rounded-lg justify-between">
       <div>
         <img src="./img/Main 1.png" />
         <p className="text-[26px] text-foreground font-semibold">Join Us! 😎</p>
@@ -37,7 +36,7 @@ const StepTwo = (props) => {
         handleChange={handleChange}
         title={"Phone number"}
         name={"phoneNumber"}
-        placeholder={"Enter your phone number name"}
+        placeholder={"Enter your phone number"}
         errors={errors.phoneNumber}
         value={formValue.phoneNumber}
       />
@@ -45,7 +44,7 @@ const StepTwo = (props) => {
         handleChange={handleChange}
         title={"Password"}
         name={"password"}
-        placeholder={"Enter your password name"}
+        placeholder={"Enter your password"}
         errors={errors.password}
         value={formValue.password}
       />
@@ -67,7 +66,7 @@ const StepTwo = (props) => {
         </button>
         <button
           className="w-2/3 bg-black text-white border rounded-md p-2"
-          onClick={handleFormNextStep}
+          onClick={handleNextStep}
         >
           Continue
         </button>

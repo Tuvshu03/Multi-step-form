@@ -1,31 +1,56 @@
 import React from "react";
 import FormInput from "./FormInput";
-import { isStepOneValid } from "../utils/isValid";
 
 const StepOne = (props) => {
-  const { handleNextStep, formValue, errors, handleError, setFormValue } =
+  const { handleNextStep, formValue, errors, handleError, setFormValue, clearError } =
     props;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormValue((prev) => ({ ...prev, [name]: value }));
+    clearError(name)
   };
-
+    const validateFirstName = (name) => {
+      const regex = /^[A-Za-z]+$/;
+      return regex.test(name);
+    };
+  
+    const isStepOneValid = (data) =>{
+    const {firstName} = data;
+    const errors = {};
+    let isValid = true;
+  
+    if(firstName.length <=1){
+      isValid = false;
+      errors.firstName = "First name cannot contain special characters or numbers";
+      errors.lastName = "Last name cannot contain special characters or numbers";
+      errors.userName = "Must contain two or more characters.";
+    }
+    return {isValid, errors};
+  }
   const handleFormNextStep = () => {
     const { isValid, errors } = isStepOneValid(formValue);
-    if (isValid) {
+    if (isValid && validateFirstName(formValue.firstName)) {
+      const localData = {
+        ...formValue,
+        currentStep:1
+      }
+      localStorage.setItem("FormData", JSON.stringify(localData))
       handleNextStep();
     }
     handleError(errors);
+    errors.firstName = "First name cannot contain special characters or numbers";
+    errors.lastName = "Last name cannot contain special characters or numbers";
+    errors.userName = "This username is already taken. Please choose another one.";
   };
   return (
-    <div className="border rounded-[8px] w-[480px] h-1/2 p-8 flex flex-col justify-between items-start bg-white">
-      <div>
+    <div className="flex flex-col w-[480px] min-h-[655px] p-8 bg-white justify-between rounded-lg">
+      <div className="">
         <img src="./img/Main 1.png" />
         <p className="text-[26px] text-foreground font-semibold">Join Us! 😎</p>
         <p>Please provide all current information accurately</p>
       </div>
-      <div className="w-full">
+      <div className="w-full gap-2">
       <FormInput
         handleChange={handleChange}
         title={"First name"}
@@ -55,7 +80,7 @@ const StepOne = (props) => {
         onClick={handleFormNextStep}
         className="flex items-center justify-center w-full bg-black text-white border rounded-md p-2 cursor-pointer"
       >
-        Continue
+        Continue 1/3
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -72,5 +97,4 @@ const StepOne = (props) => {
     </div>
   );
 };
-
 export default StepOne;
