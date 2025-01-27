@@ -1,5 +1,6 @@
 import React from "react";
 import FormInput from "./FormInput";
+import { isStepOneValid } from "../utils/StepOneValidation";
 
 const StepOne = (props) => {
   const { handleNextStep, formValue, errors, handleError, setFormValue, clearError } =
@@ -10,27 +11,9 @@ const StepOne = (props) => {
     setFormValue((prev) => ({ ...prev, [name]: value }));
     clearError(name)
   };
-    const validateFirstName = (name) => {
-      const regex = /^[A-Za-z]+$/;
-      return regex.test(name);
-    };
-  
-    const isStepOneValid = (data) =>{
-    const {firstName} = data;
-    const errors = {};
-    let isValid = true;
-  
-    if(firstName.length <=1){
-      isValid = false;
-      errors.firstName = "First name cannot contain special characters or numbers";
-      errors.lastName = "Last name cannot contain special characters or numbers";
-      errors.userName = "Must contain two or more characters.";
-    }
-    return {isValid, errors};
-  }
   const handleFormNextStep = () => {
     const { isValid, errors } = isStepOneValid(formValue);
-    if (isValid && validateFirstName(formValue.firstName)) {
+    if (isValid) {
       const localData = {
         ...formValue,
         currentStep:1
@@ -39,9 +22,6 @@ const StepOne = (props) => {
       handleNextStep();
     }
     handleError(errors);
-    errors.firstName = "First name cannot contain special characters or numbers";
-    errors.lastName = "Last name cannot contain special characters or numbers";
-    errors.userName = "This username is already taken. Please choose another one.";
   };
   return (
     <div className="flex flex-col w-[480px] min-h-[655px] p-8 bg-white justify-between rounded-lg">

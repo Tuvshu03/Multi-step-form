@@ -70,7 +70,7 @@ const MultiStepForm = () => {
      animate="center"
      exit="exit"
      variants={AnimationVariants}
-     transition={{duration:0.3}}>  
+     transition={{duration:0.6}}>  
         <Step
         errors={formError}
         formValue={formValue}

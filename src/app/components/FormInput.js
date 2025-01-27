@@ -1,7 +1,7 @@
 import React from "react";
 
 const FormInput = (props) => {
-  const { placeholder, handleChange, name, title, errors, value} = props;
+  const { placeholder, handleChange, name, title, errors, value, type} = props;
   return (
     <div className="w-full gap-10">
       <label>
@@ -10,7 +10,7 @@ const FormInput = (props) => {
       </label>
       <input
         name={name}
-        type="text"
+        type={type ? type : "text"}
         onChange={handleChange}
         placeholder={placeholder}
         value={value}
