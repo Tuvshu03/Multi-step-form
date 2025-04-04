@@ -10,7 +10,7 @@ const validateName = (name) => {
   let isValid = true;
 
 
-  if(firstName.length <=1 && validateName(firstName)){
+  if(firstName.length <=1 && !validateName(firstName)){
     isValid = false;
     errors.firstName = "First name cannot contain special characters or numbers";
   }
