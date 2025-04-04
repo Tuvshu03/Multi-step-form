@@ -70,7 +70,7 @@ const StepThree = (props) => {
 
       <div className="w-full flex flex-col gap-2">
         <div className="w-full gap-10">
-          <label>
+          <label className="p-3 text-xl">
             Date of Birth
             <span className="text-red-500">*</span>
           </label>
@@ -87,7 +87,7 @@ const StepThree = (props) => {
         </div>
 
         {!selectedImage ? (
-          <div className="w-full gap-10">
+          <div className="w-full gap-10 p-3 text-xl">
             <label>
               Profile Image
               <span className="text-red-500">*</span>
@@ -119,6 +119,7 @@ const StepThree = (props) => {
         <button
           className="w-2/3 bg-black text-white border rounded-md p-2"
           onClick={handleFormNextStep}
+          disabled={selectedImage==="g"}
         >
           Submit
         </button>

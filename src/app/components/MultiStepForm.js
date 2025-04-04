@@ -49,37 +49,36 @@ const MultiStepForm = () => {
   };
 
   const clearError = (name) => {
-    setFormError((prev) => ({ ...prev, [name]:"" }));
+    setFormError((prev) => ({ ...prev, [name]: "" }));
   };
 
-  useEffect(()=>{
-    const data = localStorage.getItem("FormData")
-  }, [])
+  useEffect(() => {
+    const data = localStorage.getItem("FormData");
+  }, []);
 
   const AnimationVariants = {
-    enter: {x:100, opacity:0},
-    center: {x: 0, opacity:1},
-    exit: {x:-100, opacity:0}
-  }
+    enter: { x: 50, opacity: 0 },
+    center: { x: 0, opacity: 1 },
+  };
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100"> 
-      <AnimatePresence> 
-        <motion.div 
-     key={currentStep}
-     initial="enter"
-     animate="center"
-     exit="exit"
-     variants={AnimationVariants}
-     transition={{duration:0.6}}>  
-        <Step
-        errors={formError}
-        formValue={formValue}
-        handleError={handleError}
-        clearError={clearError}
-        setFormValue={setFormValue}
-        handleNextStep={handleNextStep}
-        handleBackStep={handleBackStep}
-      />
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <AnimatePresence>
+        <motion.div
+          key={currentStep}
+          initial="enter"
+          animate="center"
+          variants={AnimationVariants}
+          transition={{ duration: 0.7 }}
+        >
+          <Step
+            errors={formError}
+            formValue={formValue}
+            handleError={handleError}
+            clearError={clearError}
+            setFormValue={setFormValue}
+            handleNextStep={handleNextStep}
+            handleBackStep={handleBackStep}
+          />
         </motion.div>
       </AnimatePresence>
     </div>

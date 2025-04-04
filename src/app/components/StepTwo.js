@@ -42,7 +42,7 @@ const StepTwo = (props) => {
     }
   }
   return (
-    <div className="flex flex-col w-[480px] min-h-[655px] p-8 bg-white rounded-lg justify-between">
+    <div className="flex flex-col w-[480px] min-h-[655px] p-8 bg-white rounded-lg justify-between gap-3">
       <div>
         <img src="./img/Main 1.png" />
         <p className="text-[26px] text-foreground font-semibold">Join Us! 😎</p>
@@ -84,7 +84,7 @@ const StepTwo = (props) => {
           value={formValue.confirmPassword} 
           type={showPassword}
         />
-        <div className="w-full flex justify-end gap-2">
+        <div className="w-full flex justify-end gap-4 mb-5">
           Show password
         <input type="checkbox" onChange={handeleShowPassword}/>
         </div>

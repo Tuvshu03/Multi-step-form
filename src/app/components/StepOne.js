@@ -24,13 +24,13 @@ const StepOne = (props) => {
     handleError(errors);
   };
   return (
-    <div className="flex flex-col w-[480px] min-h-[655px] p-8 bg-white justify-between rounded-lg">
-      <div className="">
-        <img src="./img/Main 1.png" />
-        <p className="text-[26px] text-foreground font-semibold">Join Us! 😎</p>
-        <p>Please provide all current information accurately</p>
+    <div className="flex flex-col w-[480px] min-h-[550px] p-8 bg-white justify-between rounded-lg gap-3">
+      <div>
+        <img src="./img/Main 1.png"/>
+        <p className="text-2xl text-foreground font-semibold">Join Us! 😎</p>
+        <p className="text-lg">Please provide all current information accurately</p>
       </div>
-      <div className="w-full gap-2">
+      <div className="flex flex-col w-full gap-4">
       <FormInput
         handleChange={handleChange}
         title={"First name"}
