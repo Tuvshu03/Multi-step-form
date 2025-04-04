@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FormInput from "./FormInput";
 import { stepTwoValidation } from "../utils/stepTwoValidation";
 
@@ -13,6 +13,7 @@ const StepTwo = (props) => {
     clearError,
   } = props;
 
+  const [showPassword, setShowPassword] = useState("password") 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormValue((prev) => ({ ...prev, [name]: value }));
@@ -32,6 +33,14 @@ const StepTwo = (props) => {
     handleError(errors);
   };
 
+  const handeleShowPassword = () =>{
+    if(showPassword==="password"){
+      setShowPassword("text")
+    }
+    else{
+      setShowPassword("password")
+    }
+  }
   return (
     <div className="flex flex-col w-[480px] min-h-[655px] p-8 bg-white rounded-lg justify-between">
       <div>
@@ -39,7 +48,7 @@ const StepTwo = (props) => {
         <p className="text-[26px] text-foreground font-semibold">Join Us! 😎</p>
         <p>Please provide all current information accurately</p>
       </div>
-      <div>
+      <div className="flex flex-col justify-end gap-4">
         <FormInput
           handleChange={handleChange}
           title={"Email"}
@@ -63,7 +72,7 @@ const StepTwo = (props) => {
           placeholder={"Enter your password"}
           errors={errors.password}
           value={formValue.password}
-         
+          type={showPassword}
         />
 
         <FormInput
@@ -72,9 +81,12 @@ const StepTwo = (props) => {
           name={"confirmPassword"}
           placeholder={"Repeat password"}
           errors={errors.confirmPassword}
-          value={formValue.confirmPassword}
-        
+          value={formValue.confirmPassword} 
+          type={showPassword}
         />
+        <div className="w-full flex justify-end">
+        <input type="checkbox" onChange={handeleShowPassword}/>
+        </div>
       </div>
       <div className="flex w-full gap-2">
         <button

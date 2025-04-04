@@ -1,10 +1,4 @@
-
-const validateName = (name) => {
-    const regex = /^[A-Za-z]+$/;
-    return regex.test(name);
-    
-  };
- export const stepThreeValid = (data) =>{
+export const stepThreeValid = (data) =>{
   const {dateBirth} = data;
   const errors = {};
   let isValid = true;

@@ -26,7 +26,7 @@ export const stepTwoValidation = (data) => {
     errors.email = "Please provide a valid email address";
   }
 
-  if (phoneNumber.length !== 8 && isNaN(phoneNumber.length)) {
+  if (phoneNumber.length !== 8 && isNaN(phoneNumber)) {
     isValid = false;
     errors.phoneNumber = "Phone number must contain 8 number";
   }

@@ -99,7 +99,7 @@ const StepThree = (props) => {
               type="file"
               accept="image/*"
               onChange={handleImageUpload}
-              className="w-full p-3 text-base leading-5 rounded-md outline outline-[#CBD5E1] focus:outline-[#0CA5E9] text-[#121316]"
+              className="w-full p-3 text-base leading-5 rounded-md outline outline-[#CBD5E1] focus:outline-[#0CA5E9] text-[#121316] h-48"
             />
             {errors.profileImage.length > 0 && (
               <p className="text-red-500 text-sm">{errors.profileImage}</p>
