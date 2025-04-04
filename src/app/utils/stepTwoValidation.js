@@ -33,7 +33,7 @@ export const stepTwoValidation = (data) => {
   
   if(!validatePassword(password)){
     isValid = false;
-    errors.password = "password contain at least eight characters, at least one uppercase letter, one lowercase letter"
+    errors.password = "password contain at least eight characters, at least one uppercase letter, one lowercase letter, symbols and numbers"
   }
 
   if(confirmPassword!==password){
