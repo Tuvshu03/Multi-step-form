@@ -84,11 +84,12 @@ const StepTwo = (props) => {
           value={formValue.confirmPassword} 
           type={showPassword}
         />
-        <div className="w-full flex justify-end">
+        <div className="w-full flex justify-end gap-2">
+          Show password
         <input type="checkbox" onChange={handeleShowPassword}/>
         </div>
       </div>
-      <div className="flex w-full gap-2">
+      <div className="flex w-full gap-2 mb-10">
         <button
           className="w-1/3 bg-white text-black border border-[#CBD5E1] rounded-md p-2"
           onClick={handleBackStep}
