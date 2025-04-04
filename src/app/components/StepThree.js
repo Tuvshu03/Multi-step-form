@@ -82,9 +82,8 @@ const StepThree = (props) => {
             value={formValue.dateBirth}
             className="w-full p-3 text-base leading-5 rounded-md outline outline-[#CBD5E1] focus:outline-[#0CA5E9] text-[#121316]"
           />
-          {errors.dateBirth.length > 0 && (
-            <p className="text-red-500">{errors.dateBirth}</p>
-          )}
+          {errors.dateBirth.length > 0 && <p className="text-red-500">{errors.dateBirth}</p>
+          }
         </div>
 
         {!selectedImage ? (
