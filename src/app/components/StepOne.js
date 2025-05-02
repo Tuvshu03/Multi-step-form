@@ -1,10 +1,17 @@
 import React from "react";
 import FormInput from "./FormInput";
 import { isStepOneValid } from "../utils/StepOneValidation";
+import { useEffect } from "react";
 
 const StepOne = (props) => {
-  const { handleNextStep, formValue, errors, handleError, setFormValue, clearError } =
-    props;
+  const {
+    handleNextStep,
+    formValue,
+    errors,
+    handleError,
+    setFormValue,
+    clearError,
+  } = props;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -12,12 +19,21 @@ const StepOne = (props) => {
     clearError(name);
   };
 
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem("FormData"));
+    if (savedData && savedData.currentStep === 1) {
+      setFormValue({
+        firstName: savedData.firstName || "",
+        lastName: savedData.lastName || "",
+        userName: savedData.userName || "",
+      });
+    }
+  }, []); 
+
   const handleFormNextStep = () => {
     const { isValid, errors: validationErrors } = isStepOneValid(formValue);
     console.log(isValid, validationErrors);
-    if (!isValid) {
-            handleError(validationErrors);
-    } else {
+    if (isValid) {
       const localData = {
         ...formValue,
         currentStep: 1,
@@ -25,6 +41,8 @@ const StepOne = (props) => {
       localStorage.setItem("FormData", JSON.stringify(localData));
       handleError({});
       handleNextStep();
+    } else {
+      handleError(validationErrors);
     }
   };
 
@@ -33,7 +51,9 @@ const StepOne = (props) => {
       <div>
         <img src="./img/Main 1.png" alt="Main Visual" />
         <p className="text-2xl text-foreground font-semibold">Join Us! 😎</p>
-        <p className="text-lg">Please provide all current information accurately</p>
+        <p className="text-lg">
+          Please provide all current information accurately
+        </p>
       </div>
       <div className="flex flex-col w-full gap-4">
         <FormInput

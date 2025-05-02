@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import FormInput from "./FormInput";
 import { stepTwoValidation } from "../utils/stepTwoValidation";
 
