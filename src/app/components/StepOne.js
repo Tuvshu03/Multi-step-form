@@ -9,52 +9,57 @@ const StepOne = (props) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormValue((prev) => ({ ...prev, [name]: value }));
-    clearError(name)
+    clearError(name);
   };
+
   const handleFormNextStep = () => {
-    const { isValid, errors } = isStepOneValid(formValue);
-    if (isValid) {
+    const { isValid, errors: validationErrors } = isStepOneValid(formValue);
+    console.log(isValid, validationErrors);
+    if (!isValid) {
+            handleError(validationErrors);
+    } else {
       const localData = {
         ...formValue,
-        currentStep:1
-      }
-      localStorage.setItem("FormData", JSON.stringify(localData))
+        currentStep: 1,
+      };
+      localStorage.setItem("FormData", JSON.stringify(localData));
+      handleError({});
       handleNextStep();
     }
-    handleError(errors);
   };
+
   return (
     <div className="flex flex-col w-[480px] min-h-[550px] p-8 bg-white justify-between rounded-lg gap-3">
       <div>
-        <img src="./img/Main 1.png"/>
+        <img src="./img/Main 1.png" alt="Main Visual" />
         <p className="text-2xl text-foreground font-semibold">Join Us! 😎</p>
         <p className="text-lg">Please provide all current information accurately</p>
       </div>
       <div className="flex flex-col w-full gap-4">
-      <FormInput
-        handleChange={handleChange}
-        title={"First name"}
-        name={"firstName"}
-        placeholder={"Enter your first name"}
-        errors={errors.firstName}
-        value={formValue.firstName}
-      />
-      <FormInput
-        handleChange={handleChange}
-        title={"Last name"}
-        name={"lastName"}
-        placeholder={"Enter your last name"}
-        errors={errors.lastName}
-        value={formValue.lastName}
-      />
-      <FormInput
-        handleChange={handleChange}
-        title={"User name"}
-        name={"userName"}
-        placeholder={"Enter your user name"}
-        errors={errors.userName}
-        value={formValue.userName}
-      />
+        <FormInput
+          handleChange={handleChange}
+          title="First name"
+          name="firstName"
+          placeholder="Enter your first name"
+          errors={errors.firstName}
+          value={formValue.firstName}
+        />
+        <FormInput
+          handleChange={handleChange}
+          title="Last name"
+          name="lastName"
+          placeholder="Enter your last name"
+          errors={errors.lastName}
+          value={formValue.lastName}
+        />
+        <FormInput
+          handleChange={handleChange}
+          title="User name"
+          name="userName"
+          placeholder="Enter your user name"
+          errors={errors.userName}
+          value={formValue.userName}
+        />
       </div>
       <div
         onClick={handleFormNextStep}
@@ -77,4 +82,5 @@ const StepOne = (props) => {
     </div>
   );
 };
+
 export default StepOne;

@@ -19,23 +19,22 @@ export const stepTwoValidation = (data) => {
 
 
   if (!validateEmail(email)) {
-    isValid = false;
     errors.email = "Please provide a valid email address";
   }
 
-  if (phoneNumber.length !== 8 && isNaN(phoneNumber)) {
-    isValid = false;
+  if (phoneNumber.length !== 8 || isNaN(phoneNumber)) {
     errors.phoneNumber = "Phone number must contain 8 number";
   }
   
   if(!validatePassword(password)){
-    isValid = false;
     errors.password = "password contain at least eight characters, at least one uppercase letter, one lowercase letter, symbols and numbers"
   }
 
   if(confirmPassword!==password){
-    isValid = false;
     errors.confirmPassword = "Password do not match";
+  }
+  if(!validateEmail(email) || phoneNumber.length !== 8 || isNaN(phoneNumber) || !validatePassword(password) || confirmPassword !== password){
+    isValid = false;
   }
   return { isValid, errors };
 };

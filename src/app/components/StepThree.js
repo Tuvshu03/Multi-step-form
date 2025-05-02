@@ -9,7 +9,7 @@ const StepThree = (props) => {
     formValue,
     setFormValue,
     clearError,
-    handleError
+    handleError,
   } = props;
 
   const [selectedImage, setSelectedImage] = useState("");
@@ -18,17 +18,25 @@ const StepThree = (props) => {
     const savedFormValue = JSON.parse(localStorage.getItem("FormData"));
     if (savedFormValue && savedFormValue.profileImage) {
       setSelectedImage(savedFormValue.profileImage);
-      setFormValue((prev)=>({
+      setFormValue((prev) => ({
         ...prev,
-        profile:savedFormValue.profileImage
-      }))
+        profile: savedFormValue.profileImage,
+      }));
     }
   }, [setFormValue]);
 
+  const validateAndClearField = (fieldName, updatedFormValue) => {
+    const { errors: validationErrors } = stepThreeValid(updatedFormValue);
+    if (!validationErrors[fieldName]) {
+      clearError(fieldName);
+    }
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormValue((prev) => ({ ...prev, [name]: value }));
-    clearError(name);
+    const updatedFormValue = { ...formValue, [name]: value };
+    setFormValue(updatedFormValue);
+    validateAndClearField(name, updatedFormValue);
   };
 
   const handleImageUpload = (event) => {
@@ -41,10 +49,9 @@ const StepThree = (props) => {
     };
     fileReader.readAsDataURL(file);
 
-    setFormValue((prev) => ({
-      ...prev,
-      profileImage: file,
-    }));
+    const updatedFormValue = { ...formValue, profileImage: file };
+    setFormValue(updatedFormValue);
+    validateAndClearField("profileImage", updatedFormValue);
   };
 
   const handleFormNextStep = () => {
@@ -52,9 +59,9 @@ const StepThree = (props) => {
     if (isValid) {
       const localData = {
         ...formValue,
-        currentStep:3
-      }
-      localStorage.setItem("FormData", JSON.stringify(localData))
+        currentStep: 3,
+      };
+      localStorage.setItem("FormData", JSON.stringify(localData));
       handleNextStep();
     }
     handleError(errors);
@@ -75,15 +82,16 @@ const StepThree = (props) => {
             <span className="text-red-500">*</span>
           </label>
           <input
-            name={"dateBirth"}
+            name="dateBirth"
             type="date"
             onChange={handleChange}
             placeholder="mm/dd/yyyy"
             value={formValue.dateBirth}
             className="w-full p-3 text-base leading-5 rounded-md outline outline-[#CBD5E1] focus:outline-[#0CA5E9] text-[#121316]"
           />
-          {errors.dateBirth.length > 0 && <p className="text-red-500">{errors.dateBirth}</p>
-          }
+          {errors.dateBirth.length > 0 && (
+            <p className="text-red-500">{errors.dateBirth}</p>
+          )}
         </div>
 
         {!selectedImage ? (
@@ -105,7 +113,7 @@ const StepThree = (props) => {
             )}
           </div>
         ) : (
-          <img src={selectedImage} alt="uploaded profile" />
+          <img src={selectedImage} alt="uploaded profile" className="w-full h-auto rounded-md" />
         )}
       </div>
 
@@ -117,9 +125,9 @@ const StepThree = (props) => {
           Back
         </button>
         <button
-          className="w-2/3 bg-black text-white border rounded-md p-2"
+          className="cursor-pointer w-2/3 bg-black text-white border rounded-md p-2"
           onClick={handleFormNextStep}
-          disabled={selectedImage==="g"}
+          disabled={selectedImage === ""}
         >
           Submit
         </button>

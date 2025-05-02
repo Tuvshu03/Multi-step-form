@@ -13,82 +13,84 @@ const StepTwo = (props) => {
     clearError,
   } = props;
 
-  const [showPassword, setShowPassword] = useState("password") 
+  const [showPassword, setShowPassword] = useState("password");
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormValue((prev) => ({ ...prev, [name]: value }));
-    clearError("");
+    clearError(name);
   };
 
   const handleFormNextStep = () => {
-    const { isValid, errors } = stepTwoValidation(formValue);
+    const { isValid, errors: validationErrors } = stepTwoValidation(formValue);
+
     if (isValid) {
       const localData = {
         ...formValue,
-        currentStep:2
-      }
-      localStorage.setItem("FormData", JSON.stringify(localData))
+        currentStep: 2,
+      };
+      localStorage.setItem("FormData", JSON.stringify(localData));
+      handleError({}); 
       handleNextStep();
+    } else {
+      handleError(validationErrors);
     }
-    handleError(errors);
   };
 
-  const handeleShowPassword = () =>{
-    if(showPassword==="password"){
-      setShowPassword("text")
-    }
-    else{
-      setShowPassword("password")
-    }
-  }
+  const handleShowPassword = () => {
+    setShowPassword((prev) => (prev === "password" ? "text" : "password"));
+  };
+
   return (
     <div className="flex flex-col w-[480px] min-h-[655px] p-8 bg-white rounded-lg justify-between gap-3">
       <div>
-        <img src="./img/Main 1.png" />
+        <img src="./img/Main 1.png" alt="Main Visual" />
         <p className="text-[26px] text-foreground font-semibold">Join Us! 😎</p>
         <p>Please provide all current information accurately</p>
       </div>
+
       <div className="flex flex-col justify-end gap-4">
         <FormInput
           handleChange={handleChange}
-          title={"Email"}
-          name={"email"}
-          placeholder={"Enter your email name"}
+          title="Email"
+          name="email"
+          placeholder="Enter your email name"
           errors={errors.email}
           value={formValue.email}
         />
         <FormInput
           handleChange={handleChange}
-          title={"Phone number"}
-          name={"phoneNumber"}
-          placeholder={"Enter your phone number"}
+          title="Phone number"
+          name="phoneNumber"
+          placeholder="Enter your phone number"
           errors={errors.phoneNumber}
           value={formValue.phoneNumber}
         />
         <FormInput
           handleChange={handleChange}
-          title={"Password"}
-          name={"password"}
-          placeholder={"Enter your password"}
+          title="Password"
+          name="password"
+          placeholder="Enter your password"
           errors={errors.password}
           value={formValue.password}
           type={showPassword}
         />
-
         <FormInput
           handleChange={handleChange}
-          title={"Confirm password"}
-          name={"confirmPassword"}
-          placeholder={"Repeat password"}
+          title="Confirm password"
+          name="confirmPassword"
+          placeholder="Repeat password"
           errors={errors.confirmPassword}
-          value={formValue.confirmPassword} 
+          value={formValue.confirmPassword}
           type={showPassword}
         />
+
         <div className="w-full flex justify-end gap-4 mb-5">
           Show password
-        <input type="checkbox" onChange={handeleShowPassword}/>
+          <input type="checkbox" onChange={handleShowPassword} />
         </div>
       </div>
+
       <div className="flex w-full gap-2 mb-10">
         <button
           className="w-1/3 bg-white text-black border border-[#CBD5E1] rounded-md p-2"
@@ -97,7 +99,7 @@ const StepTwo = (props) => {
           Back
         </button>
         <button
-          className="w-2/3 bg-black text-white border rounded-md p-2"
+          className="cursor-pointer w-2/3 bg-black text-white border rounded-md p-2"
           onClick={handleFormNextStep}
         >
           Continue
